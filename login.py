@@ -36,7 +36,7 @@ label.pack()
 button = Button(root, overrelief="solid", width=15, command=countUP
                 , repeatdelay=1000, repeatinterval=100, text="test")
 
-button.flash()
+
 button.pack()
 
 
