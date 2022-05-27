@@ -108,7 +108,6 @@ def signin_btncmd():
         msgbox.showwarning("오류", "입력되지 않은 정보가 있습니다. 다시 확인하세요.")
     
     else:
-        #email_str = email.get()
         #이메일 형식이 알맞지 않은 경우
         if is_email_valid(email.get()) == FALSE:
             msgbox.showwarning("오류", "이메일 형식이 알맞지 않습니다. 형식을 다시 확인하세요.")
