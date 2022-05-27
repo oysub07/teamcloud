@@ -60,7 +60,7 @@ pw.grid(row = 1, column = 1)
 
 def print_random():
     _LENGTH_=6
-    string_pool = string.ascii_letters + string.digits
+    string_pool = string.ascii_uppercase + string.digits
 
     result = ""
     for i in range(_LENGTH_):
@@ -113,7 +113,7 @@ def signin_btncmd():
             msgbox.showwarning("오류", "이메일 형식이 알맞지 않습니다. 형식을 다시 확인하세요.")
         #이메일 형식이 알맞은 경우
         else:
-            if tmp_str == rand.get() : 
+            if tmp_str == rand.get().upper() : 
                 msgbox.showinfo("완료", "회원가입이 완료되었습니다")
                 root.destroy() #창 닫기
                 
