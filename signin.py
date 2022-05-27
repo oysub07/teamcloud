@@ -97,13 +97,19 @@ def signin_btncmd():
         msgbox.showwarning("오류", "입력되지 않은 정보가 있습니다. 다시 확인하세요.")
     
     else:
-        if tmp_str == rand.get() : 
-            info_btn = msgbox.showinfo("완료", "회원가입이 완료되었습니다")
-            root.destroy() #창 닫기
-            
-        #보안문자가 일치하지 않는 경우
+        email_str = email.get()
+        #이메일 형식이 알맞지 않은 경우
+        if email_str.rfind("@") == -1 or email_str.rfind(".") == -1:
+            msgbox.showwarning("오류", "이메일 형식이 알맞지 않습니다. 형식을 다시 확인하세요.")
+        #이메일 형식이 알맞은 경우
         else:
-            msgbox.showwarning("오류", "보안문자가 일치하지 않습니다. 다시 입력하세요.")
+            if tmp_str == rand.get() : 
+                info_btn = msgbox.showinfo("완료", "회원가입이 완료되었습니다")
+                root.destroy() #창 닫기
+                
+            #보안문자가 일치하지 않는 경우
+            else:
+                msgbox.showwarning("오류", "보안문자가 일치하지 않습니다. 다시 입력하세요.")
             
 
 #등록 버튼
