@@ -39,6 +39,17 @@ labelemail = Label(emailframe, text = "e-mail", width = 10, font = ("맑은 고�
 labelemail.grid(row = 1, column=0)
 email = Entry(emailframe)
 email.grid(row = 1, column = 1)
+email_str = email.get()
+
+#이메일 형식 판독 함수
+def is_email_valid(email_str):
+    #이메일 형식이 알맞지 않은 경우
+    if email_str.rfind("@") == -1 or email_str.rfind(".") == -1:
+        return FALSE
+    #이메일 형식이 알맞은 경우
+    else:
+       return TRUE
+            
 
 pwframe = Frame(mainFrame)
 pwframe.pack()
@@ -97,14 +108,14 @@ def signin_btncmd():
         msgbox.showwarning("오류", "입력되지 않은 정보가 있습니다. 다시 확인하세요.")
     
     else:
-        email_str = email.get()
+        #email_str = email.get()
         #이메일 형식이 알맞지 않은 경우
-        if email_str.rfind("@") == -1 or email_str.rfind(".") == -1:
+        if is_email_valid(email.get()) == FALSE:
             msgbox.showwarning("오류", "이메일 형식이 알맞지 않습니다. 형식을 다시 확인하세요.")
         #이메일 형식이 알맞은 경우
         else:
             if tmp_str == rand.get() : 
-                info_btn = msgbox.showinfo("완료", "회원가입이 완료되었습니다")
+                msgbox.showinfo("완료", "회원가입이 완료되었습니다")
                 root.destroy() #창 닫기
                 
             #보안문자가 일치하지 않는 경우
