@@ -1,6 +1,6 @@
 import random
 from tkinter import *
-from tkinter import messagebox
+
 
 database = {"email": "password"}
 
@@ -44,6 +44,7 @@ captchaFrame.pack(pady=(10, 20))
 captcha = Entry(captchaFrame)
 captcha.grid(row=2, column=0)
 
+
 def regen():
     global captchaNumber
     n = str(random.randrange(0, 10 ** MAX_LENGTH))
@@ -55,51 +56,41 @@ def regen():
 
 regen()
 
-
 regenBtn = Button(captchaFrame, text="regen", width='5', command=regen, repeatdelay=1)
 regenBtn.grid(row=1, column=1)
 
-#우선 로그인창의 대략적인 디자인을 구현했습니다. 5/17
+emails = database.keys()
+passwords = database.values()
+count = 0
 
 
-idlabel=Label(root, text="아이디")
-idlabel.place(x=80, y=130)
-
-
-identry=Entry(root)
-identry.place(x=130, y=130)
-
-pslabel=Label(root, text="비밀번호")
-pslabel.place(x=68, y=160)
-
-psentry=Entry(root)
-psentry.place(x=130, y=160)
-
-seculabel=Label(root, text="보안문자")
-seculabel.place(x=68, y=300)
-
-
-secuentry=Entry(root)
-secuentry.place(x=130, y=300)
-
-secunum=Label(root, text="이 곳에 보안문자 출력")
-secunum.place(x=140, y=210)
-
-
-#아래는 버튼을 나타내기 위해 임시로 사용한 함수입니다.
-
-'''count=0
-
-def countUP():
+def login():
     global count
-    count +=1
-    templabel.config(text=str(count))
-    
-templabel=Label(root, text="0")
-templabel.place(x=100, y=260)
+    k = email.get()
+    t = password.get()
+    g = captcha.get()
 
-rebutton = Button(root, overrelief="solid", width=10, command=countUP,
-                        repeatdelay=1000, repeatinterval=100, text="Regen")
-rebutton.place(x=160, y=260)'''
+    if (k in emails) and (t in passwords) and (g == captchaNumber):
+        new = Tk()
+        new.title("successful login")
+        new.geometry("400x400+100+100")
+        new.resizable(False, False)
+        welcome = Label(new, text="Welcome!!", width=20, height=50)
+        welcome.pack()
+        new.mainloop()
+    else:
+        count += 1
+        notice2.config(text=str(count) + "회 실패하셨습니다")
+
+
+notice2 = Label(root)
+
+notice2.pack()
+
+loginbuttonFrame = Frame(mainFrame)
+loginbuttonFrame.pack(pady=(10, 20))
+loginbutton = Button(loginbuttonFrame, overrelief="solid", width=20, command=login, repeatdelay=1000,
+                     repeatinterval=100, text="로그인")
+loginbutton.grid(row=1, column=1)
 
 root.mainloop()
