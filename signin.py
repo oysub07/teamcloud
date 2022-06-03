@@ -101,10 +101,6 @@ ref_btn.grid(row = 1, column = 1)
 def signin_btncmd():
     #입력되지 않은 정보가 있는 경우
     if name.get() == "" or email.get() == "" or pw.get() == "" or (sex.get() != 1 and sex.get() != 2) :
-        print(name.get())
-        print(email.get())
-        print(pw.get())
-        print(sex.get())
         msgbox.showwarning("오류", "입력되지 않은 정보가 있습니다. 다시 확인하세요.")
     
     else:
@@ -116,6 +112,7 @@ def signin_btncmd():
             if tmp_str == rand.get().upper() : 
                 msgbox.showinfo("완료", "회원가입이 완료되었습니다")
                 root.destroy() #창 닫기
+                import login #회원가입 완료 후 로그인 창으로 이동
                 
             #보안문자가 일치하지 않는 경우
             else:
