@@ -93,5 +93,17 @@ loginbutton = Button(loginbuttonFrame, overrelief="solid", width=20, command=log
                      repeatinterval=100, text="로그인")
 loginbutton.grid(row=1, column=1)
 
-root.mainloop()
 
+#회원가입창으로 이동
+def new_window():
+    root.destroy()
+    import signin_cloud
+    
+#회원가입 버튼
+signinbuttonFrame = Frame(mainFrame)
+signinbuttonFrame.pack(pady=(10, 20))
+signinbutton = Button(signinbuttonFrame, overrelief="solid", width=20, command=new_window, repeatdelay=1000,
+                     repeatinterval=100, text="회원가입")
+signinbutton.grid(row=1, column=1)
+
+root.mainloop()
