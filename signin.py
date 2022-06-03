@@ -13,7 +13,7 @@ fpath = r'C:\pystudy\test_data.xlsx'
 #회원가입시  db에 저장되게 하는 함수
 def save_info(sex, name, email, password):
 
-    #db 파일 존재 유무 파악
+    #기존에 db 파일이 없는 경우
     if os.path.exists(fpath) == FALSE:
         wb = openpyxl.Workbook()
         ws = wb.active
@@ -34,11 +34,10 @@ def save_info(sex, name, email, password):
         ws.cell(row,3).value = email
         ws.cell(row,4).value = password
 
+    #기존에 db파일이 이미 있는 경우
     else: 
         wb= openpyxl.load_workbook(fpath)
         ws = wb.active
-  
-        #데이터 추가하기
         row = ws.max_row + 1
 
         if sex == 1:
