@@ -5,7 +5,54 @@ import random
 import string
 from captcha.image import ImageCaptcha
 import sys
+import openpyxl
+import os
 
+fpath = r'C:\pystudy\test_data.xlsx'
+
+#회원가입시  db에 저장되게 하는 함수
+def save_info(sex, name, email, password):
+
+    #db 파일 존재 유무 파악
+    if os.path.exists(fpath) == FALSE:
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = '회원정보'
+        ws['A1'] = '성별'
+        ws['B1'] = '이름'
+        ws['C1'] = '이메일'
+        ws['D1'] = '비밀번호'
+        row = 2
+
+        if sex == 1:
+            ws.cell(row,1).value = "남"
+
+        else:
+            ws.cell(row,1).value = "여"
+        
+        ws.cell(row,2).value = name
+        ws.cell(row,3).value = email
+        ws.cell(row,4).value = password
+
+    else: 
+        wb= openpyxl.load_workbook(fpath)
+        ws = wb.active
+  
+        #데이터 추가하기
+        row = ws.max_row + 1
+
+        if sex == 1:
+            ws.cell(row,1).value = "남"
+
+        else:
+            ws.cell(row,1).value = "여"
+        
+        ws.cell(row,2).value = name
+        ws.cell(row,3).value = email
+        ws.cell(row,4).value = password
+        
+    wb.save(fpath)
+    
 root = Tk()
 
 title = Label(root, text = "CLOUD 회원가입", font = ("맑은 고딕", '25','bold'))
@@ -110,6 +157,7 @@ def signin_btncmd():
         #이메일 형식이 알맞은 경우
         else:
             if tmp_str == rand.get().upper() : 
+                save_info(sex.get(),name.get(),email.get(),pw.get())
                 msgbox.showinfo("완료", "회원가입이 완료되었습니다")
                 root.destroy() #창 닫기
                 import login #회원가입 완료 후 로그인 창으로 이동
