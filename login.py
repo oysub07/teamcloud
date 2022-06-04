@@ -1,6 +1,6 @@
 import random
 from tkinter import *
-
+import captchaLib
 
 database = {"email": "password"}
 
@@ -47,9 +47,8 @@ captcha.grid(row=2, column=0)
 
 def regen():
     global captchaNumber
-    n = str(random.randrange(0, 10 ** MAX_LENGTH))
-    captchaNumber = '0' * (MAX_LENGTH - len(n)) + n
-    imgCaptcha = Label(captchaFrame, text=captchaNumber, width='8', anchor="w")
+    captchaNumber, photo = captchaLib.refresh()
+    imgCaptcha = Label(captchaFrame, image=photo, width='160', height='90')
     imgCaptcha.grid(row=1, column=0)
     print(captchaNumber)
 
@@ -83,8 +82,7 @@ def login():
         notice2.config(text=str(count) + "회 실패하셨습니다")
 
 
-notice2 = Label(root)
-
+notice2 = Label()
 notice2.pack()
 
 loginbuttonFrame = Frame(mainFrame)
