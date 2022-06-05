@@ -9,7 +9,7 @@ import openpyxl
 import os
 import captchaLib
 
-fpath = r'C:\pystudy\test_data.xlsx'
+fpath=r'C:\Users\82103\Desktop\pystudy\test_data.xlsx'
 
 
 # 회원가입시  db에 저장되게 하는 함수
