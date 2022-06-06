@@ -1,6 +1,9 @@
 import random
 from tkinter import *
-import captchaLib
+#import captchaLib
+import random
+import string
+from captcha.image import ImageCaptcha
 import openpyxl
 from openpyxl import load_workbook
 
@@ -37,27 +40,43 @@ lblPassword.grid(row=1, column=0)
 password = Entry(passwordFrame, show = '*')
 password.grid(row=1, column=1)
 
-global captchaNumber
+def print_random():
+    _LENGTH_=6
+    string_pool = string.ascii_uppercase + string.digits
 
-captchaFrame = Frame(mainFrame)
-captchaFrame.pack(pady=(10, 20))
-
-captcha = Entry(captchaFrame)
-captcha.grid(row=2, column=0)
-
-
-def regen():
-    global captchaNumber
-    captchaNumber, photo = captchaLib.refresh()
-    imgCaptcha = Label(captchaFrame, image=photo, width='160', height='90')
-    imgCaptcha.grid(row=1, column=0)
-    print(captchaNumber)
+    result = ""
+    for i in range(_LENGTH_):
+        result += random.choice(string_pool)
+    global tmp_str
+    tmp_str = result
+    print(tmp_str)
+    return result
 
 
-regen()
+#보안문자
+randomframe = Frame(mainFrame)
 
-regenBtn = Button(captchaFrame, text="regen", width='5', command=regen, repeatdelay=1)
-regenBtn.grid(row=1, column=1)
+#새로고침
+def refresh_btncmd():
+    global randomframe
+    randomframe.pack()
+
+    image = ImageCaptcha(width=160, height=90)
+    txt_captcha = print_random()
+    image.generate(txt_captcha)
+    image.write(txt_captcha, 'captcha_result.png')
+    photo = PhotoImage(file='captcha_result.png')
+
+    labelrandom = Label(randomframe, image=photo)
+    labelrandom.grid(row = 1, column=0)
+    global rand
+    rand = Entry(randomframe, width = 15, font = 8)
+    rand.place(x = 40, y = 20)
+    rand.grid(row = 2)
+refresh_btncmd()
+
+ref_btn = Button(randomframe, text = "새로고침", anchor = "e", command = refresh_btncmd)
+ref_btn.grid(row = 1, column = 1)
 
 count = 0
 
@@ -84,7 +103,7 @@ def login():
         
 
 
-    if (email.get() == dbemail[k]) and (password.get() == dbpassword) and (captcha.get() == captchaNumber):
+    if (email.get() == dbemail[k]) and (password.get() == dbpassword) and (rand.get() == tmp_str):
         new = Tk()
         new.title("successful login")
         new.geometry("400x400+100+100")
@@ -97,7 +116,7 @@ def login():
         notice2.config(text=str(count) + "회 실패하셨습니다")
 
 
-notice2 = Label()
+notice2 = Label(root)
 notice2.pack()
 
 loginbuttonFrame = Frame(mainFrame)
@@ -110,7 +129,7 @@ loginbutton.grid(row=1, column=1)
 #회원가입창으로 이동
 def new_window():
     root.destroy()
-    import signin_cloud
+    import signin #회원가입 파일명
 
 #회원가입 버튼
 signinbuttonFrame = Frame(mainFrame)
