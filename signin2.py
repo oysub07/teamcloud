@@ -55,9 +55,10 @@ def save_info(sex, name, email, password):
 
 
 root = Tk()
+root.title("Sign in to team10")
 
-title = Label(root, text="CLOUD 회원가입", font=("맑은 고딕", '25', 'bold'))
-root.geometry("540x360+200+100")  # 윈도우/창이 나타나는 위치를 지정
+title = Label(root, text="CLOUD 회원가입", font=('Helvetica 20 bold'))
+root.geometry("400x400+200+100")  # 윈도우/창이 나타나는 위치를 지정
 title.pack()
 
 mainFrame = Frame(root)
